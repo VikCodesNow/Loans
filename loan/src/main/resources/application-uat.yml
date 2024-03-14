@@ -1,0 +1,9 @@
+spring:
+  config:
+    activate:
+      on-profile: uat
+
+
+loans:
+  env: uat
+  version: 0.0.1
