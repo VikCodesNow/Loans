@@ -3,6 +3,7 @@ package com.master.spring.boot.loan.controller;
 
 import com.master.spring.boot.loan.constants.LoansConstants;
 import com.master.spring.boot.loan.dto.ErrorResponseDto;
+import com.master.spring.boot.loan.dto.LoansApiDto;
 import com.master.spring.boot.loan.dto.LoansDto;
 import com.master.spring.boot.loan.dto.ResponseDto;
 import com.master.spring.boot.loan.service.ILoansService;
@@ -15,6 +16,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -37,6 +39,8 @@ public class LoansController {
 
     private ILoansService iLoansService;
 
+    @Autowired
+    LoansApiDto apiDto;
     @Operation(
             summary = "Create Loan REST API",
             description = "REST API to create new loan"
@@ -163,6 +167,11 @@ public class LoansController {
                     .status(HttpStatus.EXPECTATION_FAILED)
                     .body(new ResponseDto(LoansConstants.STATUS_417, LoansConstants.MESSAGE_417_DELETE));
         }
+    }
+
+    @GetMapping("api-version")
+    public ResponseEntity<LoansApiDto> getVersion() {
+        return new ResponseEntity<>(apiDto,HttpStatus.OK);
     }
 
 }
